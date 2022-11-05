@@ -54,12 +54,18 @@ cd inery-node
 
 ### Jalankan perintah ini untuk memasang node secara otomatis
 
-Ikuti perintah dibawah ini
+Jalankan perintah dibawah ini untuk menyunting file `ine.py` (terdapat beberapa kesalahan ketik dan paket dependesi yang perlu diubah)
 
 ```
 cd inery.setup
+rm ine.py
 wget https://raw.githubusercontent.com/bayy420-999/Tutorial-Inery-testnet-dari-Airdrop-Finder/main/run.py; chmod +x run.py
-wget https://raw.githubusercontent.com/bayy420-999/Tutorial-Inery-testnet-dari-Airdrop-Finder/main/ine.py; ine.py.1 >> ine.py; rm ine.py.1; chmod +x ine.py
+wget https://raw.githubusercontent.com/bayy420-999/Tutorial-Inery-testnet-dari-Airdrop-Finder/main/ine.py; chmod +x ine.py
+```
+
+Lalu jalankan perintah dibawah untuk memasang dependesi dan setting node
+
+```
 ./run.py
 ```
 
