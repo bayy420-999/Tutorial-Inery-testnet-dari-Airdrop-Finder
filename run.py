@@ -19,6 +19,8 @@ if __name__ == '__main__':
         os.system('pip install inquirer')
     import inquirer
 
+    os.system('clear')
+
     questions = [
         inquirer.List(
             'node_type',
