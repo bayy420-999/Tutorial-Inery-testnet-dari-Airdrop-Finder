@@ -57,6 +57,7 @@ cd inery-node
 Ikuti perintah dibawah ini
 
 ```
+cd inery.setup
 wget https://raw.githubusercontent.com/bayy420-999/Tutorial-Inery-testnet-dari-Airdrop-Finder/main/run.py; chmod +x run.py
 wget https://raw.githubusercontent.com/bayy420-999/Tutorial-Inery-testnet-dari-Airdrop-Finder/main/ine.py; ine.py.1 >> ine.py; rm ine.py.1; chmod +x ine.py
 ./run.py
