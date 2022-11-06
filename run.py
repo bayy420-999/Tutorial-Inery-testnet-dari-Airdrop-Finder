@@ -15,6 +15,10 @@ def setup():
 
 if __name__ == '__main__':
     setup()
+
+    if 'pip' not in [pkg.key for pkg in pkg_resources.working_set]:
+        os.system('apt install python3-pip')
+
     if 'inquirer' not in [pkg.key for pkg in pkg_resources.working_set]:
         os.system('pip install inquirer')
     import inquirer
