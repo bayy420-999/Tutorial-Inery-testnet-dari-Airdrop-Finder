@@ -38,6 +38,48 @@
 |----------|---------------------|
 |Sistem Operasi|Ubuntu 18.04 atau lebih tinggi|
 
+## Mendaftar di `testnet.inery.io`
+
+Sebelum mengikuti testnet anda harus mendaftar akun di [sini](testnet.inery.io)
+
+Langkah-langkah:
+
+1. Klik link diatas
+
+2. Klik strip 3 di pojok kanan halaman
+
+3. Klik `sign up`
+
+   Selanjutnya anda harus mengisi beberapa informasi dibawah
+
+   | Informasi | Keterangan |
+   |-----------|------------|
+   |Server Name|Isi dengan alamat server anda, untuk lebih lengkapnya akan saya tulis dibawah|
+   |IP Address|Isi dengan alamat ip yang dipake untuk login server/vps|
+   |Account Name|Isi bebas, panjang maxsimal 13 karakter dan tidak boleh menggunakan karakter diluar karakter `.12345abcdefghijklmnopqrstuvwxyz`|
+   |Password|Isi dengan password|
+   |Confirm Password|Isi dengan password yang tadi|
+
+4. Setelah semua informasi terisi klik tombol `create`
+
+5. Simpan `Secret phrase`
+
+6. Masukan `Secret phrase` yang tadi disimpan lalu klik tombol `next`
+
+### Mengetahui Server Name
+
+- Jika anda menggunakan VPS dari Digital Ocean maka Serber Name sama dengan Alamat IP
+
+- Jika anda menggunakan VPS dari Contabo maka ikuti langkah berikut untuk mendapatkan Server Name
+
+  1. Buka akun Contabo anda
+
+  2. Pilih `Reverse DNS Management`
+
+  3. Cari Alamat IP kalian dan salin link PTR Recordnya, itu adalah Server Name anda
+
+- Jika anda menggunakan VPS dari Azure maka Server Name sama dengan Alamat IP publik
+
 ## Unduh dan jalankan node
 
 ### Unduh paket Inery node
@@ -46,10 +88,10 @@
 git clone  https://github.com/inery-blockchain/inery-node
 ```
  
-### Masuk ke folder `inery-node`
+### Masuk ke folder `inery-node/inery.setup`
  
 ```
-cd inery-node
+cd inery-node/inery.setup
 ```
 
 ### Jalankan perintah ini untuk memasang node secara otomatis
@@ -57,7 +99,6 @@ cd inery-node
 Jalankan perintah dibawah ini untuk menyunting file `ine.py` (terdapat beberapa kesalahan ketik dan paket dependesi yang perlu diubah)
 
 ```
-cd inery.setup
 rm ine.py
 wget https://raw.githubusercontent.com/bayy420-999/Tutorial-Inery-testnet-dari-Airdrop-Finder/main/run.py; chmod +x run.py
 wget https://raw.githubusercontent.com/bayy420-999/Tutorial-Inery-testnet-dari-Airdrop-Finder/main/ine.py; chmod +x ine.py
@@ -90,6 +131,8 @@ Setelah proses sinkronisasi selesai, masuk ke folder `lite.node` lalu jalanakan 
 ```
 ./ine.py --master
 ```
+
+> Untuk menjadi master node anda harus memiliki minimal 50000 INE testnet token, anda bisa pergi ke halaman [dashboard](https://testnet.inery.io/dashboard/) dan klaim 50000 INE faucet
 
 > Setelah menjalankan perintah diatas, tunggu beberapa saat sampai proses sinkronisasi blok selesai, proses ini dapat memakan waktu sampai beberapa jam
 
@@ -137,9 +180,9 @@ Izinkan akun anda sebagai produser dengan menjalankan perintah dibawah
 cline system makeprod approve NAMA_AKUN NAMA_AKUN
 ```
 
-## Menghentikan node
+### Menghentikan node
 
-### Berhenti sementara
+- Berhenti sementara
 
 Untuk menghentikan node yang sedang aktif untuk sementara, anda bisa masuk ke folder `inery.setup/inery.node` dan jalankan skrip
 
@@ -153,10 +196,132 @@ Untuk melanjutkan protokol blockchain gunakan perintah
 ./start.sh
 ```
 
-## Hapus semua 
+### Hapus semua 
 
 Untuk menghapus blockchain dan semua data dari server masuk `inery.setup/inery.node` dan jalankan skrip dibawah
 
 ```
 ./clean.sh
 ```
+
+## Tugas-tugas testnet
+
+Untuk bagian ini akan saya masukan [kesini](https://github.com/bayy420-999/Tutorial-Inery-testnet-dari-Airdrop-Finder/blob/main/Tugas.md)
+
+## Perintah berguna
+
+### Mengecek log
+
+```
+tail -f blockchain/nodine.log
+```
+
+> pastikan anda sudah berada di folder `master.node` atau `lite.node`
+
+### Mengecek informasi blockchain
+
+```
+cline get info
+```
+
+### Mengecek informasi akun
+
+```
+cline get account NAMA_AKUN_YANG_INGIN_DICEK
+```
+
+### Mengecek transaksi dari blockchain
+
+```
+ cline get transaction TX_ID
+```
+
+### Membuat dompet baru
+
+```
+cline wallet create --name NAMA_DOMPET --file NAMA_FILE.txt
+```
+
+> Salin sandi anda ke tempat yang aman, karena ada bug yang mengakibatkan sandi didalam file .txt hilang, yang mengakibatkan dompet tidak dapat dibuka
+
+### Membuka dompet yang terkunci
+
+```
+cline wallet unlock --name NAMA_DOMPET --password KATA_SANDI_DOMPET
+```
+
+### Membuka dompet yang sudah terbuka
+
+```
+cline wallet open --name NAMA_DOMPET
+```
+
+### Mengimpor private key
+
+```
+cline wallet import --name NAMA_DOMPET --private-key PRIVATE_KEY
+```
+
+> Sebelum mengimpor private key, pastikan bahwa dompet yang anda gunakan sudah terbuka
+
+### Melihat list dompet
+
+```
+cline wallet list
+```
+
+> `*` pada dompet menandakan bahwa dompet terbuka
+
+### Melihat public key dari dompet yang terbuka
+
+```
+cline wallet keys
+```
+
+### Melihat private key dari dompet yang terbuka
+
+```
+ cline wallet private_keys --name NAMA_DOMPET --password KATA_SANDI_DOMPET
+```
+
+### Transfer token
+
+```
+ cline transfer ALAMAT_PENGIRIM ALAMAT_PENERIMA JUMLAH_YANG_AKAN_DITRANSFER
+```
+
+
+## Troubleshoot
+
+Ada beberapa masalah yang mungkin timbul saat proses pemasangan dan menhjalankan node, di bagian ini saya akan memberikan solusi dari masalah-masalah tersebut
+
+### Saya lupa kata sandi dompet saya, bagaimana saya membuka dompet saya
+
+Jika anda lupa kata sandi dompet anda, maka dompet anda tidak akan bisa dibuka kembali. Solusinya adalah membuat dompet baru dan memasukan `private key` yang sama seperti sebelumnya
+
+Untuk cara membuat dompet baru bisa anda lihat di bagian `Perintah berguna`, kali ini jangan lupa untuk menyimpan sandi anda
+
+### FileNotFoundError: [Errno 2] No such file or directory: './blockchain/config/config.ini'
+
+Jika pesan error ini muncul kemungkinan karena `libssl 1.1` tidak terpasang di server anda, untuk memasangnya silahkan gunakan perintah dibawah
+
+```
+wget http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+```
+
+### net_plugin::plugin_startup failed to bind to port 9010
+
+Jika pesan error ini muncul maka penyebabnya karena `nodine` masinh berjalan di latar belakang, solusinya adalah mematikan `nodine`. Anda bisa menggunakan perintah dibawah untuk mematikan `nodine`
+
+```
+pidkill nodine
+```
+
+Untuk memastikan bahwa `nodine` sudah berhenti, anda bisa menggunakan perintah ini
+
+```
+pidof nodine
+```
+
+Setelah memastikan `nodine` benar-benar berhenti, anda dapat menjalankan node lagi
