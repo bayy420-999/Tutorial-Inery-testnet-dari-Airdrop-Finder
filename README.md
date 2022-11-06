@@ -40,7 +40,7 @@
 
 ## Mendaftar di `testnet.inery.io`
 
-Sebelum mengikuti testnet anda harus mendaftar akun di [sini](https://www.testnet.inery.io)
+Sebelum mengikuti testnet anda harus mendaftar akun di [sini](https://testnet.inery.io)
 
 Langkah-langkah:
 
