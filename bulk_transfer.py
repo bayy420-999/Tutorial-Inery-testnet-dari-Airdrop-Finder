@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import os, inquirer
+import os, time, inquirer
 
 if __name__ == '__main__':
     os.system('clear')
@@ -27,7 +27,8 @@ if __name__ == '__main__':
     token = a.get('token')
     msg = a.get('msg')
 
-    l = ['inery', 'bgpateng', 'jisoo', 'alfonova', 'dexa', 'jambul.inery', 'riandwiyandi', 'armz', 'asphxwzrd', 'away', 'bintangnl', 'blacktokyoo']
+    l = ['inery', 'bgpateng','bayy421', 'jisoo', 'alfonova', 'dexa', 'jambul.inery', 'riandwiyandi', 'armz', 'asphxwzrd', 'away', 'bintangnl', 'blacktokyoo']
     s = 'cline push action inery.token transfer' 
     for n in l:
-        os.system(s, f"'[\"{acc_name}\", \"{n}\", \"{token}\", \"{msg}\"]' -p {acc_name}")
+        os.system(s + f" '[\"{acc_name}\", \"{n}\", \"{token}\", \"{msg}\"]' -p {acc_name}")
+        time.sleep(2)
