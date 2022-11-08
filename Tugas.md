@@ -53,7 +53,7 @@ Jika sudah maka ikuti langkah-langkah berikut
 5. Issue token
 
    ```
-   cline push action inery.token issue '["NAMA_AKUN", "SUPPLY_TOKEN SYMBOL"], "DESKRIPSI_TOKEN"' -p NAMA_AKUN
+   cline push action inery.token issue '["NAMA_AKUN", "SUPPLY_TOKEN SYMBOL", "DESKRIPSI_TOKEN"]' -p NAMA_AKUN
    ```
    
    Isi seperti tadi
