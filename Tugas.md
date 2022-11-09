@@ -70,3 +70,147 @@ Jika sudah maka ikuti langkah-langkah berikut
 7. Masuk ke `testnet.inery.io` dan buka dashboard kalian
 8. Scroll sampe bawah dan klik `FINISH`
 9. Tunggu hingga tugas dikonfirmasi
+
+## Tugas 3: Create Your Value Contract
+
+1. Unduh pake `inery.cdt`
+
+   ```
+   wget -qO crud.sh https://raw.githubusercontent.com/bangpateng/inery/main/crud.sh && chmod +x crud.sh && ./crud.sh
+   ```
+
+2. Ekspor path
+
+   ```
+   export PATH="$PATH:$HOME/inery.cdt/bin:$HOME/inery-node/inery/bin"
+   ```
+
+3. Buat folder
+
+   ```
+   mkdir -p $HOME/inrcrud
+   ```
+
+4. Tulis code
+
+   ```
+   sudo tee $HOME/inrcrud/inrcrud.cpp >/dev/null <<EOF
+   #include <inery/inery.hpp>
+   #include <inery/print.hpp>
+   #include <string>
+    
+   using namespace inery;
+    
+   using std::string;
+    
+   class [[inery::contract]] inrcrud : public inery::contract {
+     public:
+       using inery::contract::contract;
+    
+    
+           [[inery::action]] void create( uint64_t id, name user, string data ) {
+               records recordstable( _self, id );
+               auto existing = recordstable.find( id );
+               check( existing == recordstable.end(), "record with that ID already exists" );
+               check( data.size() <= 256, "data has more than 256 bytes" );
+    
+               recordstable.emplace( _self, [&]( auto& s ) {
+                  s.id         = id;
+                  s.owner      = user;
+                  s.data       = data;
+               });
+    
+               print( "Hello, ", name{user} );
+               print( "Created with data: ", data );
+           }
+    
+            [[inery::action]] void read( uint64_t id ) {
+               records recordstable( _self, id );
+               auto existing = recordstable.find( id );
+               check( existing != recordstable.end(), "record with that ID does not exist" );
+               const auto& st = *existing;
+               print("Data: ", st.data);
+           }
+    
+           [[inery::action]] void update( uint64_t id, string data ) {
+               records recordstable( _self, id );
+               auto st = recordstable.find( id );
+               check( st != recordstable.end(), "record with that ID does not exist" );
+    
+    
+               recordstable.modify( st, get_self(), [&]( auto& s ) {
+                  s.data = data;
+               });
+    
+               print("Data: ", data);
+           }
+    
+               [[inery::action]] void destroy( uint64_t id ) {
+               records recordstable( _self, id );
+               auto existing = recordstable.find( id );
+               check( existing != recordstable.end(), "record with that ID does not exist" );
+               const auto& st = *existing;
+    
+               recordstable.erase( st );
+    
+               print("Record Destroyed: ", id);
+    
+           }
+    
+     private:
+       struct [[inery::table]] record {
+          uint64_t        id;
+          name     owner;
+          string          data;
+          uint64_t primary_key()const { return id; }
+       };
+    
+       typedef inery::multi_index<"records"_n, record> records;
+    };
+   EOF
+   ```
+
+5. Compile code
+
+   ```
+   inery-cpp $HOME/inrcrud/inrcrud.cpp -o $HOME/inrcrud/inrcrud.wasm
+   ```
+
+6. Buka dompet
+
+   ```
+   cline wallet unlock -n NAMA_DOMPET
+   ```
+
+7. Setting contract
+
+   ```
+   cline set contract NAMA_AKUN ./inrcrud
+   ```
+
+8. Buat contract
+
+   ```
+   cline push action NAMA_AKUN create '[1, "NAMA_AKUN", "My first Record"]' -p NAMA_AKUN --json
+   ```
+
+   > Simpan transaksi
+
+9. Baca contract
+
+   ```
+   cline push action NAMA_AKUN read [1] -p NAMA_AKUN --json
+   ```
+
+10. Update contract
+
+    ```
+    cline push action NAMA_AKUN update '[ 1,  "My first Record Modified"]' -p NAMA_AKUN --json
+    ```
+
+11. Hancurkan contract 
+    ```
+    cline push action NAMA_AKUN destroy [1] -p NAMA_AKUN --json
+    ```
+
+12. Jika tidak ada error anda bisa klik `Finish task` di dashboard inery
