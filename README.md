@@ -276,7 +276,7 @@ Ikuti langkah-langkah berikut
 
 * Cek log node
   ```console
-  tail -f master.node/blockchain/nodeine.log
+  tail -f master.node/blockchain/nodine.log
   ```
 
 Jika node sudah tersinkronisasi jalankan script `start.sh`
