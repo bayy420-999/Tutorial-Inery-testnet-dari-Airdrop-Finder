@@ -288,7 +288,7 @@ Lalu daftar menjadi produser blok
 
 * Daftarkan akun menjadi produser
   ```console
-  cline system regproducer <NAMA_AKUN> <PUBLIC_KEY_AKUN> 0.0.0.0:9010
+  cline master bind <NAMA_AKUN> <PUBLIC_KEY_AKUN> <IP_VPS>:9010
   ```
 
   Hapus `<>` dan ganti sesuai petunjuk
@@ -301,7 +301,7 @@ Lalu daftar menjadi produser blok
 
 * Izinkan akun sebagai produser
   ```console
-  cline system makeprod approve <NAMA_AKUN> <NAMA_AKUN>
+  cline approve <NAMA_AKUN>
   ```
 
   Jika terjadi error `unable to find key` maka anda harus claim faucet lagi, lalu ulangi perintah diatas 
