@@ -301,7 +301,7 @@ Lalu daftar menjadi produser blok
 
 * Izinkan akun sebagai produser
   ```console
-  cline approve <NAMA_AKUN>
+  cline master approve <NAMA_AKUN>
   ```
 
   Jika terjadi error `unable to find key` maka anda harus claim faucet lagi, lalu ulangi perintah diatas 
